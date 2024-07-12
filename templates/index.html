@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data K-Means Clustering</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4 text-center">Data K-Means Clustering</h1>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                Import CSV
+            </div>
+            <div class="card-body">
+                <form action="/import" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" name="file" class="form-control-file" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Import CSV</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Add Data
+            </div>
+            <div class="card-body">
+                <form action="/add" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input type="text" name="jenis_tanah" class="form-control" placeholder="Jenis Tanah" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="number" name="kelembapan_tanah" class="form-control" placeholder="Kelembapan Tanah" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="number" step="0.01" name="ph_tanah" class="form-control" placeholder="pH Tanah" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="number" step="0.01" name="suhu_udara" class="form-control" placeholder="Suhu Udara" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Add Data</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="text-center mb-4">
+            <a href="/clusters" target="_blank" class="btn btn-info">View Clusters</a>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Data Table
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Jenis Tanah</th>
+                            <th>Kelembapan Tanah</th>
+                            <th>pH Tanah</th>
+                            <th>Suhu Udara</th>
+                            <th>C1</th>
+                            <th>C2</th>
+                            <th>K</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data %}
+                        <tr>
+                            <td>{{ item["Jenis Tanah"] }}</td>
+                            <td>{{ item["Kelembapan Tanah"] }}</td>
+                            <td>{{ item["pH Tanah"] }}</td>
+                            <td>{{ item["Suhu Udara"] }}</td>
+                            <td>{{ item["C1"] }}</td>
+                            <td>{{ item["C2"] }}</td>
+                            <td>{{ item["K"] }}</td>
+                            <td>
+                                <form action="/delete/{{ loop.index0 }}" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+install python versi 3.12
+install library pada cmd dengan memasukkan pip install Flask scikit-learn pandas
