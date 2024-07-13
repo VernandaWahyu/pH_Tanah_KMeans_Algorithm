@@ -39,7 +39,7 @@ def perform_kmeans_with_initial_centroids(df):
     kmeans.fit(X)
     df['C1'] = [euclidean_distance(x, initial_centroids[0]) for x in X]
     df['C2'] = [euclidean_distance(x, initial_centroids[1]) for x in X]
-    df['K'] = ['Centroid ' + str(label + 1) for label in kmeans.labels_]
+    df['K'] = ['Centroid 1' if c1 < c2 else 'Centroid 2' for c1, c2 in zip(df['C1'], df['C2'])]
     return df, kmeans.cluster_centers_
 
 def plot_clusters(df, centroids):
